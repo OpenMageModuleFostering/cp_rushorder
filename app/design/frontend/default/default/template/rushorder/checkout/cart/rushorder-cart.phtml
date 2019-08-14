@@ -1,0 +1,41 @@
+<div class="rushorder-cart">
+<form id="rushorderForm" action="<?php echo $this->getUrl('rushorder/index/applyrushorder'); ?>" method="post">
+    <div class="discount">
+        <h2><?php echo $this->__('Rush order') ?></h2>
+        <div class="discount-form">
+            <label for="coupon_code"><?php echo  Mage::getStoreConfig('rushorder/configuration/cartdesc'); ?></label>
+            <div class="input-box">
+			<?php if(Mage::getSingleton('core/session')->getRushorderapply() == 'rapply') { ?>
+					<input type="checkbox" checked class="rushorderchk required-entry" style="margin-right: 3px;" name="rushorderapply" value="1">  <?php echo  Mage::getStoreConfig('rushorder/configuration/title'); ?><br>
+			<?php } else { ?>
+					<input type="checkbox" id="rushorderapply" class="rushorderchk required-entry" style="margin-right: 3px;" name="rushorderapply" value="1">  <?php echo  Mage::getStoreConfig('rushorder/configuration/title'); ?><br>
+			<?php } ?>
+			<div id="rushorderapplyval" style="display: none;" class="validation-advice">This is a required field.</div>
+                  
+            </div>
+            <div class="buttons-set">
+                <button type="submit" name="applyrushorder" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Apply')) ?>" class="button" onclick="return validationchk()" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Apply')) ?>"><span><span><?php echo $this->__('Apply') ?></span></span></button>
+				
+				<button type="submit" name="resetrushorder" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Reset')) ?>" class="button" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Reset')) ?>"><span><span><?php echo $this->__('Reset') ?></span></span></button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+<script type="text/javascript">
+
+	// Custom validation for checkbox in cart page
+	
+	function validationchk(){
+		var remember = document.getElementById('rushorderapply');
+		if (remember.checked){
+			// check box is checked
+			return true;
+		}else{
+			// check box is not checked
+			document.getElementById('rushorderapplyval').style.display = "block";
+			return false;
+		}
+	}
+</script>

@@ -1,0 +1,9 @@
+<?php if (!$this->getQuote()->isVirtual()): ?>
+    <?php echo $this->helper('giftmessage/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+<?php endif; ?>
+<!-- Rushorder Enabled -->
+<?php if(Mage::getSingleton('core/session')->getRushorderapply() == 'rapply') { ?>
+	<input type="checkbox" checked name="shipping_rushorder" class="additional-amount-box" value="1"/>  <?php echo Mage::getStoreConfig('rushorder/configuration/title'); ?>
+<?php } else { ?>
+	<input type="checkbox" name="shipping_rushorder" class="additional-amount-box" value="1"/>  <?php echo Mage::getStoreConfig('rushorder/configuration/title'); ?>
+<?php } ?>

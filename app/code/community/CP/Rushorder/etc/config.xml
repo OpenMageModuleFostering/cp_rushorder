@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!-- 
+ /**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * @category    Commerce Pundit Technologies
+ * @package     CP_Rushorder
+ * @copyright   Copyright (c) 2016 Commerce Pundit Technologies. (http://www.commercepundit.com)    
+ * @author      <<Niranjan Gondaliya>>    
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <CP_Rushorder>
+            <version>0.1.5</version>
+        </CP_Rushorder>
+    </modules>
+    <global>
+        <sales>
+            <quote>
+                <totals>
+                    <rushorder>
+                        <class>rushorder/sales_quote_address_total_rushorder</class>
+                        <renderer>rushorder/checkout_totals_rushorder</renderer>
+                        <admin_renderer>rushorder/adminhtml_sales_order_create_totals_rushorder</admin_renderer>
+                    </rushorder>
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <rushorder>
+                        <class>rushorder/sales_order_total_invoice_rushorder</class>
+                    </rushorder>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <rushorder>
+                        <class>rushorder/sales_order_total_creditmemo_rushorder</class>
+                    </rushorder>
+                </totals>
+            </order_creditmemo>
+        </sales>
+        <events>
+            <paypal_prepare_line_items>
+                <observers>
+                    <paypal_prepare_line_items>
+                        <class>rushorder/observer</class>
+                        <method>updatePaypalTotal</method>
+                    </paypal_prepare_line_items>
+                </observers>
+            </paypal_prepare_line_items>
+            <sales_order_invoice_save_after>
+                <observers>
+                    <sales_order_invoice_save_after>
+                        <class>rushorder/observer</class>
+                        <method>invoiceSaveAfter</method>
+                    </sales_order_invoice_save_after>
+                </observers>
+            </sales_order_invoice_save_after>
+            <sales_order_creditmemo_save_after>
+                <observers>
+                    <sales_order_creditmemo_save_after>
+                        <class>rushorder/observer</class>
+                        <method>creditmemoSaveAfter</method>
+                    </sales_order_creditmemo_save_after>
+                </observers>
+            </sales_order_creditmemo_save_after>
+        </events>
+        <fieldsets>
+            <sales_convert_quote_address>
+                <rushorder_amount>
+                    <to_order>*</to_order>
+                </rushorder_amount>
+                <base_rushorder_amount>
+                    <to_order>*</to_order>
+                </base_rushorder_amount>
+            </sales_convert_quote_address>
+        </fieldsets>
+        <pdf>
+            <totals>
+                <rushorder translate="title">
+                    <title>Rushorder</title>
+                    <source_field>rushorder_amount</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>650</sort_order>
+                    <amount_prefix></amount_prefix>
+                </rushorder>
+            </totals>
+        </pdf>
+        <resources>
+            <rushorder_setup>
+                <setup>
+                    <module>CP_Rushorder</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </rushorder_setup>
+        </resources>
+        <models>
+            <rushorder>
+                <class>CP_Rushorder_Model</class>
+            </rushorder>
+        </models>
+        <blocks>
+            <rushorder>
+                <class>CP_Rushorder_Block</class>
+            </rushorder>
+        </blocks>
+        <helpers>
+            <rushorder>
+                <class>CP_Rushorder_Helper</class>
+            </rushorder>
+        </helpers>
+    </global>
+    <frontend>
+		<routers>
+            <rushorder>
+                <use>standard</use>
+                <args>
+                    <module>CP_Rushorder</module>
+                    <frontName>rushorder</frontName>
+                </args>
+            </rushorder>
+			
+			<checkout>
+				<args>
+					<modules>
+						<CP_Rushorder before="Mage_Checkout">CP_Rushorder</CP_Rushorder>
+					</modules>
+				</args>
+			</checkout>
+        </routers>
+        <layout>
+            <updates>
+                <rushorder>
+                    <file>rushorder.xml</file>
+                </rushorder>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <rushorder>
+                    <file>rushorder.xml</file>
+                </rushorder>
+            </updates>
+        </layout>
+    </adminhtml>
+    <default>
+        <sales>
+            <totals_sort>
+                <rushorder>15</rushorder>
+            </totals_sort>
+        </sales>
+		<rushorder>
+			<configuration>
+				<title>Rush order</title>
+				<cartdesc>Rush order</cartdesc>
+				<amount>30</amount>
+			</configuration>
+		</rushorder>
+    </default>
+</config>
