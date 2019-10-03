@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/CP_Rushorder",
+    "name": "openmage-module-fostering\/cp_rushorder",
     "type": "magento-module",
-    "license": "OSL-v3.0",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Rush Order extension by Commerce Pundit will help you to add additional options for your order.",
     "authors": [
